@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batalha Naval: jogue contra o computador no navegador</title>
+  <meta name="description" content="Batalha Naval clássica contra o computador, com três níveis (o difícil usa densidade de probabilidade), posicionamento manual ou aleatório, regra de navios sem encostar, sons, animações, estatísticas e jogo pelo teclado.">
+  <meta name="theme-color" content="#0e7490">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚓</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Batalha Naval</h1>
+    <p class="lead">O clássico contra o computador: posicione sua frota, escolha o nível e afunde os navios inimigos antes que ele afunde os seus.</p>
+  </header>
+
+  <main>
+    <section class="card settings" aria-labelledby="settings-title">
+      <h2 id="settings-title" class="sr-only">Configurações</h2>
+      <div class="settings-row">
+        <div class="field">
+          <label for="level">Nível do computador</label>
+          <select id="level">
+            <option value="easy">Fácil: tiros ao acaso</option>
+            <option value="medium">Médio: caça e alvo</option>
+            <option value="hard">Difícil: densidade de probabilidade</option>
+          </select>
+        </div>
+        <label class="check"><input type="checkbox" id="no-touch"> Navios não podem se encostar</label>
+        <label class="check"><input type="checkbox" id="sound"> Som</label>
+        <label class="check"><input type="checkbox" id="animations"> Animações</label>
+        <button type="button" class="btn secondary" id="new-game">Nova partida</button>
+      </div>
+      <p id="settings-note" class="hint" aria-live="polite"></p>
+    </section>
+
+    <section class="card status-card" aria-label="Situação da partida">
+      <p id="turn" class="turn"></p>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+      <ol id="log" class="log" aria-label="Últimos tiros"></ol>
+    </section>
+
+    <div class="boards" id="boards">
+      <section class="card board-card" aria-labelledby="player-title">
+        <div class="board-head">
+          <h2 id="player-title">Sua frota</h2>
+          <p id="player-info" class="muted small"></p>
+        </div>
+        <div id="player-board" class="board player" role="grid" aria-label="Sua frota"></div>
+        <div id="setup" class="setup">
+          <p class="hint">Escolha um navio e clique no seu mar para posicionar (a casa clicada é a proa). Arraste um navio para mudar de lugar. Teclado: setas, Enter para posicionar, R para girar, Delete para recolher, 1 a 5 para escolher o navio.</p>
+          <ul id="dock" class="dock" aria-label="Navios para posicionar"></ul>
+          <div class="actions">
+            <button type="button" class="btn secondary" id="rotate">Girar (R)</button>
+            <button type="button" class="btn secondary" id="random">Aleatório</button>
+            <button type="button" class="btn secondary" id="clear">Recolher todos</button>
+            <button type="button" class="btn" id="start" disabled>Começar partida</button>
+          </div>
+        </div>
+        <ul id="player-fleet" class="fleet" aria-label="Situação da sua frota"></ul>
+      </section>
+
+      <section class="card board-card enemy-card" aria-labelledby="enemy-title">
+        <div class="board-head">
+          <h2 id="enemy-title">Mar inimigo</h2>
+          <p id="enemy-info" class="muted small"></p>
+        </div>
+        <div id="enemy-board" class="board enemy" role="grid" aria-label="Mar inimigo"></div>
+        <ul id="enemy-fleet" class="fleet" aria-label="Situação da frota inimiga"></ul>
+      </section>
+    </div>
+
+    <section class="card" aria-labelledby="stats-title">
+      <div class="board-head">
+        <h2 id="stats-title">Estatísticas</h2>
+        <button type="button" class="btn secondary small" id="reset-stats">Zerar</button>
+      </div>
+      <dl id="stats" class="stats"></dl>
+    </section>
+
+    <section class="card help" aria-labelledby="help-title">
+      <h2 id="help-title">Como jogar</h2>
+      <ul>
+        <li>A frota de cada lado tem um porta-aviões (5 casas), um encouraçado (4), um cruzador (3), um submarino (3) e um destróier (2), em linha reta, na horizontal ou na vertical.</li>
+        <li>Cada um atira uma vez por rodada. A resposta é "água", "acertou" ou "afundou o ..." quando todas as casas de um navio são atingidas. Ganha quem afundar a frota inteira primeiro.</li>
+        <li>No mar inimigo, use as setas para escolher a casa e Enter ou espaço para atirar. Linhas vão de A a J e colunas de 1 a 10.</li>
+        <li>No nível difícil, o computador conta, para cada casa, de quantas formas os navios que restam caberiam ali sem contrariar o que ele já sabe, e atira na casa mais provável.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Tudo roda no seu navegador. Código aberto no <a href="https://github.com/micdog22/batalha-naval">GitHub</a> · Licença MIT</p>
+  </footer>
+</body>
+</html>

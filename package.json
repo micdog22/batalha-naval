@@ -1,0 +1,11 @@
+{
+  "name": "batalha-naval",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Batalha Naval contra o computador no navegador, com três níveis, o difícil por densidade de probabilidade",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/micdog22/batalha-naval.git" },
+  "homepage": "https://micdog22.github.io/batalha-naval/"
+}
